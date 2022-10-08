@@ -11,6 +11,7 @@ struct Node
     Node *next;
 
     Node(int v, Node* n) : val(v), next(n) {}
+
 };
 
 
@@ -24,7 +25,7 @@ struct Node
  * upon return and head set to NULL (i.e. we are not making copies)
  * in the smaller and larger lists but simply moving Nodes out of
  * the input list and into the two other lists.
- * 
+ *
  * ==============================================================
  * MUST RUN IN O(n) where n is the number of nodes in the input list
  * ==============================================================
@@ -46,6 +47,11 @@ struct Node
  *
  */
 void llpivot(Node *&head, Node *&smaller, Node *&larger, int pivot);
+
+/**
+ * Helper for llpivot from above, same parameters.
+ */
+void pivotHelper(Node *&head, Node *&smaller, Node *&larger, int pivot);
 
 /**
  * Given a linked list pointed to by head, removes (filters out) nodes
@@ -78,11 +84,19 @@ Node* llfilter(Node* head, Comp pred);
 template <typename Comp>
 Node* llfilter(Node* head, Comp pred)
 {
-    //*********************************************
-    // Provide your implementation below
-    //*********************************************
-
-
+    if(head == NULL)
+    {
+        return NULL;
+    }
+    if(pred(head->val))
+    {
+        return llfilter(head->next, pred);
+    }
+    else
+    {
+        head->next = llfilter(head->next, pred);
+        return head;
+    }
 }
 
 #endif
