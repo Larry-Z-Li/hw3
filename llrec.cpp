@@ -8,8 +8,14 @@ void pivotHelper(Node *&head, Node *&smaller, Node *&larger, int pivot)
 {
     if(head == NULL)
     {
-        smaller->next = NULL;
-        larger->next = NULL;
+        if(smaller != NULL)
+        {
+            smaller->next = NULL;
+        }
+        if(larger != NULL)
+        {
+            larger->next = NULL;
+        }
         return;
     }
     if(head->val <= pivot)
